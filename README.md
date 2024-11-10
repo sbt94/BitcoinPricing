@@ -143,7 +143,7 @@ curl http://<minikube-ip>/service-b
 curl http://<minikube-ip>/service-a/health
 ```
 
-## Monitoring and Maintenance
+## Check status/health
 Check service status
 ```
 # Get all resources
