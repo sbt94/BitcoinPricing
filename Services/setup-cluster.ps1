@@ -5,6 +5,7 @@ minikube start --cpus=2 --memory=2200 --disk-size=8g --driver=docker
 
 # Enable required addons
 minikube addons enable ingress
+minikube addons enable metrics-server
 
 # Switch to Minikube's Docker daemon
     # Windows
@@ -32,10 +33,14 @@ kubectl apply -f Ingress/ingress.yaml
 kubectl wait --for=condition=ready pod -l app=service-a --timeout=120s
 kubectl wait --for=condition=ready pod -l app=service-b --timeout=120s
 
+# Apply autoscaling
+kubectl autoscale deployment/service-a --min=2 --max=5 --cpu-percent=80
+
 # Final verification
 kubectl get pods
 kubectl get services
 kubectl get ingress
+kubectl get hpa
 
 # Setup complete
 echo "Setup complete!"

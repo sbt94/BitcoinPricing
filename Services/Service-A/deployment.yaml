@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: service-a
 spec:
-  replicas: 2  # Multiple replicas for high availability
+  replicas: 2
   selector:
     matchLabels:
       app: service-a
@@ -23,6 +23,18 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 80
+        template:
+    spec:
+      containers:
+      - name: service-a
+        image: service-a-image
+        resources:
+          requests:
+            cpu: "200m"    # For HPA
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
         livenessProbe:
           httpGet:
             path: /health
@@ -39,77 +51,3 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 3
           failureThreshold: 2
-
-
-
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: service-a
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: service-a
-#   template:
-#     metadata:
-#       labels:
-#         app: service-a
-#     spec:
-#       containers:
-#       - name: service-a
-#         image: service-a-image
-#         imagePullPolicy: Never
-#         ports:
-#         - containerPort: 80
-#         livenessProbe:
-#           httpGet:
-#             path: /health
-#             port: 80
-#           initialDelaySeconds: 30
-#           periodSeconds: 10
-#         readinessProbe:
-#           httpGet:
-#             path: /health
-#             port: 80
-#           initialDelaySeconds: 5
-#           periodSeconds: 5
-
-
-
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: service-a
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: service-a
-#   template:
-#     metadata:
-#       labels:
-#         app: service-a
-#     spec:
-#       containers:
-#       - name: service-a
-#         image: service-a-image
-#         imagePullPolicy: Never
-#         ports:
-#         - containerPort: 80
-#         env:
-#         - name: API_URL
-#           valueFrom:
-#             configMapKeyRef:
-#               name: service-a-config
-#               key: API_URL
-#         - name: CHECK_INTERVAL
-#           valueFrom:
-#             configMapKeyRef:
-#               name: service-a-config
-#               key: CHECK_INTERVAL
-#         - name: AVERAGE_WINDOW
-#           valueFrom:
-#             configMapKeyRef:
-#               name: service-a-config
-#               key: AVERAGE_WINDOW

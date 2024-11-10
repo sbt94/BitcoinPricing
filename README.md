@@ -75,19 +75,20 @@ K8S-Cluster-Solution/
 #### Linux - Ubuntu
 ```
 #Run setup-cluster.sh
-chmod +x test-deployment.sh
-./test-deployment.sh
+chmod +x setup-cluster.sh
+./setup-cluster.sh
 ```
 #### Windows
 ```
 #Run setup-cluster.ps1
-.\test-deployment.ps1
+.\setup-cluster.ps1
 ```
 ### Run manually
 1. Start Minikube:
 ```
 minikube start
 minikube addons enable ingress
+minikube addons enable metrics-server
 ```
 2. Set up Docker environment:
 ```
@@ -124,11 +125,14 @@ kubectl apply -f NetworkPolicy/deny_service_a_to_service_b.yaml
 
 # Create ingress
 kubectl apply -f Ingress/ingress.yaml
+
+# Apply autoscaling
+kubectl autoscale deployment/service-a --min=2 --max=5 --cpu-percent=80
 ```
 ## Testing the Services
-1. kubectl get pods,svc,ingress
+1. kubectl get pods,svc,ingress, hpa
 ```
-kubectl get pods,svc,ingress
+kubectl get pods,svc,ingress, hpa
 minikube ip
 ```
 2. Test endpoints

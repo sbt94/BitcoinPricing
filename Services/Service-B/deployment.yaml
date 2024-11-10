@@ -23,6 +23,18 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 80
+        template:
+    spec:
+      containers:
+      - name: service-b
+        image: service-b-image
+        resources:
+          requests:
+            cpu: "200m"    # For HPA
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
         livenessProbe:
           httpGet:
             path: /health
@@ -39,59 +51,3 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 3
           failureThreshold: 2
-
-
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: service-b
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: service-b
-#   template:
-#     metadata:
-#       labels:
-#         app: service-b
-#     spec:
-#       containers:
-#       - name: service-b
-#         image: service-b-image
-#         imagePullPolicy: Never
-#         ports:
-#         - containerPort: 80
-#         livenessProbe:
-#           httpGet:
-#             path: /health
-#             port: 80
-#           initialDelaySeconds: 30
-#           periodSeconds: 10
-#         readinessProbe:
-#           httpGet:
-#             path: /health
-#             port: 80
-#           initialDelaySeconds: 5
-#           periodSeconds: 5
-
-
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: service-b
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: service-b
-#   template:
-#     metadata:
-#       labels:
-#         app: service-b
-#     spec:
-#       containers:
-#       - name: service-b
-#         image: service-b-image
-#         imagePullPolicy: Never
-#         ports:
-#         - containerPort: 80
