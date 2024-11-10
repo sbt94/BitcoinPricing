@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-a-config
+data:
+  API_URL: "https://api.coindesk.com/v1/bpi/currentprice/BTC.json"
+  CHECK_INTERVAL: "60000"
+  AVERAGE_WINDOW: "600000"
+  
