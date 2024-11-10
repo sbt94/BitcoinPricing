@@ -69,6 +69,7 @@ K8S-Cluster-Solution/
 - Network policy for service isolation
 - Configurable through ConfigMaps
 - RBAC for security
+- Autoscaling scaleability
 
 ## Quick Start
 ### Using the automatic script
