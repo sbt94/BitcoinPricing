@@ -8,8 +8,7 @@ minikube addons enable ingress
 minikube addons enable metrics-server
 
 # Switch to Minikube's Docker daemon
-    # Windows
-    & minikube -p minikube docker-env --shell powershell | Invoke-Expression
+eval $(minikube docker-env)
 
 # Build Docker images
 cd Services/Service-A/script
