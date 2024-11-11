@@ -96,7 +96,7 @@ minikube addons enable metrics-server
 # Linux
 eval $(minikube docker-env) 
 # Windows
-& minikube -p minikube docker-env --shell powershell | Invoke-Expression
+minikube docker-env | Invoke-Expression
 ```
 3. Build Services:
 ```

@@ -23,18 +23,13 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 80
-        template:
-    spec:
-      containers:
-      - name: service-b
-        image: service-b-image
         resources:
           requests:
             cpu: "200m"    # For HPA
-            memory: "256Mi"
+            memory: "384Mi"
           limits:
             cpu: "500m"
-            memory: "512Mi"
+            memory: "768Mi"
         livenessProbe:
           httpGet:
             path: /health

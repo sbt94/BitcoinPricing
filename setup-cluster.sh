@@ -1,7 +1,7 @@
 # Start Minikube
-#minikube start
+minikube start
 # Or
-minikube start --cpus=2 --memory=2200 --disk-size=8g --driver=docker
+#minikube start --cpus=2 --memory=2200 --disk-size=8g --driver=docker
 
 # Enable required addons
 minikube addons enable ingress
