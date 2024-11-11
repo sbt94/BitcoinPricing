@@ -11,5 +11,7 @@ spec:
   egress:
   - to:
     - podSelector:
-        matchLabels:
-          app: service-b
+        matchExpressions:
+        - key: app
+          operator: NotIn     
+          values: ["service-b"]

@@ -93,7 +93,10 @@ minikube addons enable metrics-server
 ```
 2. Set up Docker environment:
 ```
+# Linux
 eval $(minikube docker-env) 
+# Windows
+& minikube -p minikube docker-env --shell powershell | Invoke-Expression
 ```
 3. Build Services:
 ```
